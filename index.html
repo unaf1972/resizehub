@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResizeHub – Exact KB Image Resizer for Government Forms</title>
+  <meta name="description" content="Free online tools to resize images to exact KB for FPSC, UPSC, IBPS, NADRA and government forms. 100% private, no upload.">
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YF9S33NXBS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YF9S33NXBS');
+  </script>
+
+  <style>
+    :root {
+      --primary: #0b6e4f;
+      --primary-dark: #07543c;
+      --bg: #f7f9f8;
+      --card: #ffffff;
+      --text: #1a1a1a;
+      --muted: #5f6b66;
+      --border: #dde5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header.site {
+      max-width: 960px;
+      margin: 0 auto 28px;
+      text-align: center;
+    }
+    header.site h1 {
+      font-size: 2rem;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+    header.site p {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+    main {
+      flex: 1;
+    }
+    .grid {
+      max-width: 960px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .tool-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .tool-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .tool-card h3 {
+      color: var(--primary-dark);
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+    .tool-card p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .tool-card.coming {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+    .tool-card.coming::after {
+      content: "Coming soon";
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      background: #e8f5ef;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    footer.site {
+      max-width: 960px;
+      margin: 40px auto 0;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 600px) {
+      header.site h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site">
+  <h1>ResizeHub</h1>
+  <p>Exact KB resizing for Pakistan, India, Bangladesh &amp; MENA government forms.</p>
+</header>
+
+<main>
+  <div class="grid">
+    <a class="tool-card coming" href="#">
+      <h3>Resize to 20KB</h3>
+      <p>FPSC, UPSC, IBPS photo &amp; signature requirements.</p>
+    </a>
+    <a class="tool-card coming" href="#">
+      <h3>Resize to 50KB</h3>
+      <p>NADRA CNIC, FPSC photo, IBPS photo.</p>
+    </a>
+    <a class="tool-card coming" href="#">
+      <h3>Resize to 100KB</h3>
+      <p>PPSC, UPSC signature, state exam forms.</p>
+    </a>
+  </div>
+</main>
+
+<footer class="site">
+  Designed &amp; built by Nasir Naqvi
+</footer>
+
+</body>
+</html>
