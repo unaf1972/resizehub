@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF to JPG Converter â€“ ResizeHub</title>
+  <meta name="description" content="Convert PDF pages to JPG images in your browser. Free, private, no upload.">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YF9S33NXBS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YF9S33NXBS');
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <style>
+    :root { --primary: #0b6e4f; --primary-dark: #07543c; --bg: #f7f9f8; --card: #ffffff; --text: #1a1a1a; --muted: #5f6b66; --border: #dde5e1; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; min-height: 100vh; display: flex; flex-direction: column; }
+    header.site { max-width: 860px; margin: 0 auto 24px; text-align: center; }
+    header.site h1 { font-size: 1.7rem; color: var(--primary-dark); margin-bottom: 8px; }
+    header.site p { color: var(--muted); font-size: 0.95rem; }
+    nav.site { max-width: 860px; margin: 0 auto 24px; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; font-size: 0.95rem; }
+    nav.site a { color: var(--primary-dark); text-decoration: none; font-weight: 600; }
+    nav.site a:hover { text-decoration: underline; }
+    main { flex: 1; }
+    .card { max-width: 860px; margin: 0 auto; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; box-shadow: 0 4px 18px rgba(0,0,0,0.04); }
+    .field { margin-bottom: 18px; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.95rem; }
+    input[type="file"], select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 1rem; background: #fff; font-family: inherit; }
+    button { background: var(--primary); color: #fff; border: none; padding: 13px 22px; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; transition: background 0.2s; font-family: inherit; }
+    button:hover { background: var(--primary-dark); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    #status { margin-top: 14px; font-size: 0.95rem; color: var(--muted); min-height: 22px; }
+    .note { max-width: 860px; margin: 22px auto 0; font-size: 0.88rem; color: var(--muted); text-align: center; }
+    .info { background: #f0f7f3; border-radius: 10px; padding: 12px 16px; font-size: 0.9rem; color: var(--primary-dark); margin-bottom: 18px; display: none; }
+    .thumb-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 20px; }
+    .thumb { text-align: center; }
+    .thumb img { width: 100%; border: 1px solid var(--border); border-radius: 8px; background: #f0f0f0; }
+    .thumb a { display: block; margin-top: 6px; font-size: 0.82rem; color: var(--primary-dark); text-decoration: none; font-weight: 700; }
+    .thumb a:hover { text-decoration: underline; }
+    footer.site { max-width: 860px; margin: 40px auto 0; text-align: center; font-size: 0.88rem; color: var(--muted); padding-top: 20px; border-top: 1px solid var(--border); }
+    @media (max-width: 600px) { header.site h1 { font-size: 1.4rem; } .card { padding: 18px; } }
+  </style>
+</head>
+<body>
+<header class="site">
+  <h1>PDF to JPG Converter</h1>
+  <p>Convert PDF pages to JPG images. 100% private â€” no upload.</p>
+</header>
+<nav class="site">
+  <a href="/">Home</a>
+  <a href="/pdf-merge/">Merge</a>
+  <a href="/pdf-split/">Split</a>
+  <a href="/pdf-compress/">Compress</a>
+  <a href="/pdf-to-jpg/">PDFâ†’JPG</a>
+  <a href="/jpg-to-pdf/">JPGâ†’PDF</a>
+</nav>
+<main>
+  <div class="card">
+    <div class="info" id="info"></div>
+    <div class="field">
+      <label for="fileInput">Choose a PDF file</label>
+      <input type="file" id="fileInput" accept="application/pdf,.pdf">
+    </div>
+    <div class="field">
+      <label for="quality">Image quality</label>
+      <select id="quality">
+        <option value="0.6">Lower (smaller files)</option>
+        <option value="0.85" selected>Balanced</option>
+        <option value="0.95">High quality</option>
+      </select>
+    </div>
+    <button id="processBtn" disabled>Convert to JPG</button>
+    <div id="status">Upload a PDF to begin.</div>
+    <div id="thumbGrid" class="thumb-grid"></div>
+  </div>
+  <p class="note">Works fully in your browser. Files never leave your device.</p>
+</main>
+<footer class="site">Designed &amp; built by Nasir Naqvi</footer>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+  const fileInput = document.getElementById('fileInput');
+  const info = document.getElementById('info');
+  const quality = document.getElementById('quality');
+  const processBtn = document.getElementById('processBtn');
+  const statusEl = document.getElementById('status');
+  const thumbGrid = document.getElementById('thumbGrid');
+
+  let sourceBytes = null;
+  let sourceName = 'document';
+  let pageCount = 0;
+
+  fileInput.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    sourceName = file.name.replace(/\.[^.]+$/, '');
+    statusEl.textContent = 'Reading PDFâ€¦';
+    processBtn.disabled = true;
+    thumbGrid.innerHTML = '';
+
+    try {
+      const buf = await file.arrayBuffer();
+      sourceBytes = buf;
+      const pdf = await pdfjsLib.getDocument({ data: buf.slice(0) }).promise;
+      pageCount = pdf.numPages;
+      info.style.display = 'block';
+      info.textContent = 'Loaded: ' + file.name + ' â€” ' + pageCount + ' page' + (pageCount === 1 ? '' : 's');
+      processBtn.disabled = false;
+      statusEl.textContent = 'Ready.';
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = 'Could not read this PDF.';
+    }
+  });
+
+  processBtn.addEventListener('click', async () => {
+    if (!sourceBytes) return;
+    processBtn.disabled = true;
+    thumbGrid.innerHTML = '';
+    const q = parseFloat(quality.value);
+
+    try {
+      const pdf = await pdfjsLib.getDocument({ data: sourceBytes.slice(0) }).promise;
+
+      for (let i = 1; i <= pdf.numPages; i++) {
+        statusEl.textContent = 'Rendering page ' + i + ' of ' + pdf.numPages + 'â€¦';
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: 2 });
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.floor(viewport.width);
+        canvas.height = Math.floor(viewport.height);
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        await page.render({ canvasContext: ctx, viewport }).promise;
+
+        const blob = await new Promise((r) => canvas.toBlob(r, 'image/jpeg', q));
+        const url = URL.createObjectURL(blob);
+
+        const thumb = document.createElement('div');
+        thumb.className = 'thumb';
+        const img = document.createElement('img');
+        img.src = url;
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = sourceName + '-page-' + i + '.jpg';
+        link.textContent = 'Download page ' + i + ' (' + (blob.size / 1024).toFixed(1) + ' KB)';
+        thumb.appendChild(img);
+        thumb.appendChild(link);
+        thumbGrid.appendChild(thumb);
+      }
+      statusEl.textContent = 'Done. Click any page below to download.';
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = 'Something went wrong.';
+    }
+    processBtn.disabled = false;
+  });
+</script>
+</body>
+</html>

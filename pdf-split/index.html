@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Split PDF Online – ResizeHub</title>
+  <meta name="description" content="Split a PDF or extract page ranges, right in your browser. Free, private, no upload.">
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YF9S33NXBS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YF9S33NXBS');
+  </script>
+
+  <!-- pdf-lib -->
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #0b6e4f;
+      --primary-dark: #07543c;
+      --bg: #f7f9f8;
+      --card: #ffffff;
+      --text: #1a1a1a;
+      --muted: #5f6b66;
+      --border: #dde5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header.site {
+      max-width: 860px;
+      margin: 0 auto 24px;
+      text-align: center;
+    }
+    header.site h1 {
+      font-size: 1.7rem;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+    header.site p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    nav.site {
+      max-width: 860px;
+      margin: 0 auto 24px;
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+    nav.site a {
+      color: var(--primary-dark);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    nav.site a:hover { text-decoration: underline; }
+    main { flex: 1; }
+    .card {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+    }
+    .field { margin-bottom: 18px; }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+    input[type="file"],
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      background: #fff;
+      font-family: inherit;
+    }
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 13px 22px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+    button:hover { background: var(--primary-dark); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    #status {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: var(--muted);
+      min-height: 22px;
+    }
+    #downloadLink {
+      display: none;
+      margin-top: 16px;
+      text-align: center;
+      background: #e8f5ef;
+      color: var(--primary-dark);
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    #downloadLink:hover { background: #d4ede0; }
+    .note {
+      max-width: 860px;
+      margin: 22px auto 0;
+      font-size: 0.88rem;
+      color: var(--muted);
+      text-align: center;
+    }
+    .info {
+      background: #f0f7f3;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      color: var(--primary-dark);
+      margin-bottom: 18px;
+    }
+    footer.site {
+      max-width: 860px;
+      margin: 40px auto 0;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 600px) {
+      header.site h1 { font-size: 1.4rem; }
+      .card { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site">
+  <h1>Split PDF</h1>
+  <p>Extract a page range or split every page into separate PDFs. 100% private — no upload.</p>
+</header>
+
+<nav class="site">
+  <a href="/">Home</a>
+  <a href="/resize-to-kb/20kb.html">20KB</a>
+  <a href="/resize-to-kb/50kb.html">50KB</a>
+  <a href="/resize-to-kb/100kb.html">100KB</a>
+  <a href="/signature/">Signature</a>
+  <a href="/passport-photo/pakistan.html">Passport</a>
+  <a href="/heic-converter/">HEIC</a>
+  <a href="/pdf-merge/">PDF Merge</a>
+</nav>
+
+<main>
+  <div class="card">
+    <div class="field">
+      <label for="fileInput">Choose a PDF file</label>
+      <input type="file" id="fileInput" accept="application/pdf,.pdf">
+    </div>
+
+    <div id="info" class="info" style="display: none;"></div>
+
+    <div class="field">
+      <label for="mode">Split mode</label>
+      <select id="mode">
+        <option value="range">Extract page range (e.g. 2-5)</option>
+        <option value="every">Split every page into separate files (download one by one)</option>
+      </select>
+    </div>
+
+    <div class="field" id="rangeField">
+      <label for="rangeInput">Page range (e.g. 1-3 or 2-5)</label>
+      <input type="text" id="rangeInput" value="1-1" placeholder="1-3">
+    </div>
+
+    <button id="processBtn" disabled>Split PDF</button>
+
+    <div id="status">Upload a PDF to begin.</div>
+    <a id="downloadLink" href="#" download>Download Result</a>
+
+    <div id="multiList" style="margin-top: 16px;"></div>
+  </div>
+
+  <p class="note">
+    Works fully in your browser. Files never leave your device.
+  </p>
+</main>
+
+<footer class="site">
+  Designed &amp; built by Nasir Naqvi
+</footer>
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const info = document.getElementById('info');
+  const mode = document.getElementById('mode');
+  const rangeField = document.getElementById('rangeField');
+  const rangeInput = document.getElementById('rangeInput');
+  const processBtn = document.getElementById('processBtn');
+  const statusEl = document.getElementById('status');
+  const downloadLink = document.getElementById('downloadLink');
+  const multiList = document.getElementById('multiList');
+
+  let sourcePdfBytes = null;
+  let sourceName = 'document';
+  let sourcePageCount = 0;
+
+  mode.addEventListener('change', () => {
+    rangeField.style.display = mode.value === 'range' ? 'block' : 'none';
+    downloadLink.style.display = 'none';
+    multiList.innerHTML = '';
+  });
+
+  fileInput.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    sourceName = file.name.replace(/\.[^.]+$/, '');
+    statusEl.textContent = 'Reading PDF…';
+    processBtn.disabled = true;
+    downloadLink.style.display = 'none';
+    multiList.innerHTML = '';
+
+    try {
+      const { PDFDocument } = PDFLib;
+      const arrayBuffer = await file.arrayBuffer();
+      sourcePdfBytes = arrayBuffer;
+      const pdfDoc = await PDFDocument.load(arrayBuffer);
+      sourcePageCount = pdfDoc.getPageCount();
+
+      info.style.display = 'block';
+      info.textContent = 'Loaded: ' + file.name + ' — ' + sourcePageCount + ' page' + (sourcePageCount === 1 ? '' : 's') + ' (' + (file.size / 1024).toFixed(1) + ' KB)';
+
+      rangeInput.value = '1-' + sourcePageCount;
+      processBtn.disabled = false;
+      statusEl.textContent = 'Ready. Choose a mode and click Split PDF.';
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = 'Could not read this PDF. Make sure it\'s not password-protected.';
+      sourcePdfBytes = null;
+    }
+  });
+
+  processBtn.addEventListener('click', async () => {
+    if (!sourcePdfBytes) return;
+
+    processBtn.disabled = true;
+    downloadLink.style.display = 'none';
+    multiList.innerHTML = '';
+
+    try {
+      const { PDFDocument } = PDFLib;
+
+      if (mode.value === 'range') {
+        await splitRange();
+      } else {
+        await splitEveryPage();
+      }
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = 'Something went wrong. Check your page range and try again.';
+    }
+
+    processBtn.disabled = false;
+  });
+
+  async function splitRange() {
+    const { PDFDocument } = PDFLib;
+    const rangeText = rangeInput.value.trim();
+
+    const match = rangeText.match(/^(\d+)\s*-\s*(\d+)$/);
+    if (!match) {
+      statusEl.textContent = 'Use format like 1-3.';
+      return;
+    }
+
+    let start = parseInt(match[1]);
+    let end = parseInt(match[2]);
+
+    if (start < 1 || end < 1 || start > sourcePageCount || end > sourcePageCount || start > end) {
+      statusEl.textContent = 'Range must be within 1 and ' + sourcePageCount + '.';
+      return;
+    }
+
+    statusEl.textContent = 'Extracting pages ' + start + ' to ' + end + '…';
+
+    const srcDoc = await PDFDocument.load(sourcePdfBytes);
+    const newDoc = await PDFDocument.create();
+    const pagesToCopy = [];
+    for (let i = start - 1; i <= end - 1; i++) pagesToCopy.push(i);
+
+    const copied = await newDoc.copyPages(srcDoc, pagesToCopy);
+    copied.forEach((p) => newDoc.addPage(p));
+
+    const bytes = await newDoc.save();
+    const blob = new Blob([bytes], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+
+    downloadLink.href = url;
+    downloadLink.download = sourceName + '-pages-' + start + 'to' + end + '.pdf';
+    downloadLink.style.display = 'block';
+    statusEl.textContent = 'Done: ' + (blob.size / 1024).toFixed(1) + ' KB. Click below to download.';
+  }
+
+  async function splitEveryPage() {
+    const { PDFDocument } = PDFLib;
+    statusEl.textContent = 'Splitting all ' + sourcePageCount + ' pages…';
+
+    const srcDoc = await PDFDocument.load(sourcePdfBytes);
+
+    for (let i = 0; i < sourcePageCount; i++) {
+      const newDoc = await PDFDocument.create();
+      const [copied] = await newDoc.copyPages(srcDoc, [i]);
+      newDoc.addPage(copied);
+
+      const bytes = await newDoc.save();
+      const blob = new Blob([bytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = sourceName + '-page-' + (i + 1) + '.pdf';
+      link.textContent = 'Download page ' + (i + 1) + ' (' + (blob.size / 1024).toFixed(1) + ' KB)';
+      link.style.display = 'block';
+      link.style.marginTop = '8px';
+      link.style.padding = '10px';
+      link.style.background = '#e8f5ef';
+      link.style.color = '#07543c';
+      link.style.borderRadius = '8px';
+      link.style.textDecoration = 'none';
+      link.style.fontWeight = '700';
+      multiList.appendChild(link);
+    }
+
+    statusEl.textContent = 'Done. Click any link above to download that page.';
+  }
+</script>
+
+</body>
+</html>

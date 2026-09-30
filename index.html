@@ -1,12 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ResizeHub – Exact KB Image Resizer for Government Forms</title>
-  <meta name="description" content="Free online tools to resize images to exact KB for FPSC, UPSC, IBPS, NADRA and government forms. 100% private, no upload.">
-
-  <!-- Google Analytics 4 -->
+  <title>ResizeHub - Exact KB Image Resizer and Government Form Tools</title>
+  <meta name="description" content="Free online tools to resize images to exact KB, make passport photos, resize signatures, merge/split/compress PDFs and convert HEIC, PNG and WebP. For FPSC, UPSC, IBPS, NADRA and government forms.">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YF9S33NXBS"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -14,129 +12,160 @@
     gtag('js', new Date());
     gtag('config', 'G-YF9S33NXBS');
   </script>
-
   <style>
-    :root {
-      --primary: #0b6e4f;
-      --primary-dark: #07543c;
-      --bg: #f7f9f8;
-      --card: #ffffff;
-      --text: #1a1a1a;
-      --muted: #5f6b66;
-      --border: #dde5e1;
-    }
+    :root { --primary: #0b6e4f; --primary-dark: #07543c; --bg: #f7f9f8; --card: #ffffff; --text: #1a1a1a; --muted: #5f6b66; --border: #dde5e1; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 20px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    header.site {
-      max-width: 960px;
-      margin: 0 auto 28px;
-      text-align: center;
-    }
-    header.site h1 {
-      font-size: 2rem;
-      color: var(--primary-dark);
-      margin-bottom: 8px;
-    }
-    header.site p {
-      color: var(--muted);
-      font-size: 1rem;
-    }
-    main {
-      flex: 1;
-    }
-    .grid {
-      max-width: 960px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-    }
-    .tool-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      text-decoration: none;
-      color: var(--text);
-      transition: border-color 0.2s, transform 0.15s;
-    }
-    .tool-card:hover {
-      border-color: var(--primary);
-      transform: translateY(-2px);
-    }
-    .tool-card h3 {
-      color: var(--primary-dark);
-      font-size: 1.1rem;
-      margin-bottom: 6px;
-    }
-    .tool-card p {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-    .tool-card.coming {
-      opacity: 0.55;
-      pointer-events: none;
-    }
-    .tool-card.coming::after {
-      content: "Coming soon";
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--primary-dark);
-      background: #e8f5ef;
-      padding: 3px 8px;
-      border-radius: 6px;
-    }
-    footer.site {
-      max-width: 960px;
-      margin: 40px auto 0;
-      text-align: center;
-      font-size: 0.88rem;
-      color: var(--muted);
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-    }
-    @media (max-width: 600px) {
-      header.site h1 { font-size: 1.5rem; }
-    }
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; min-height: 100vh; display: flex; flex-direction: column; }
+    header.site { max-width: 960px; margin: 0 auto 28px; text-align: center; }
+    header.site h1 { font-size: 2rem; color: var(--primary-dark); margin-bottom: 8px; }
+    header.site p { color: var(--muted); font-size: 1rem; }
+    main { flex: 1; }
+    .section { max-width: 960px; margin: 0 auto 32px; }
+    .section-title { font-size: 1.15rem; color: var(--primary-dark); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .tool-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-decoration: none; color: var(--text); transition: border-color 0.2s, transform 0.15s; display: block; }
+    .tool-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .tool-card h3 { color: var(--primary-dark); font-size: 1.05rem; margin-bottom: 6px; }
+    .tool-card p { color: var(--muted); font-size: 0.9rem; }
+    footer.site { max-width: 960px; margin: 40px auto 0; text-align: center; font-size: 0.88rem; color: var(--muted); padding-top: 20px; border-top: 1px solid var(--border); }
+    @media (max-width: 600px) { header.site h1 { font-size: 1.5rem; } .section-title { font-size: 1.05rem; } }
   </style>
 </head>
 <body>
 
 <header class="site">
   <h1>ResizeHub</h1>
-  <p>Exact KB resizing for Pakistan, India, Bangladesh &amp; MENA government forms.</p>
+  <p>Exact KB resizing and government form tools for Pakistan, India, Bangladesh and MENA. 100 percent private - nothing is uploaded.</p>
 </header>
 
 <main>
-  <div class="grid">
-    <a class="tool-card coming" href="#">
-      <h3>Resize to 20KB</h3>
-      <p>FPSC, UPSC, IBPS photo &amp; signature requirements.</p>
-    </a>
-    <a class="tool-card coming" href="#">
-      <h3>Resize to 50KB</h3>
-      <p>NADRA CNIC, FPSC photo, IBPS photo.</p>
-    </a>
-    <a class="tool-card coming" href="#">
-      <h3>Resize to 100KB</h3>
-      <p>PPSC, UPSC signature, state exam forms.</p>
-    </a>
-  </div>
+
+  <section class="section">
+    <h2 class="section-title">Resize to Exact KB</h2>
+    <div class="grid">
+      <a class="tool-card" href="/resize-to-kb/20kb.html">
+        <h3>Resize to 20KB</h3>
+        <p>For FPSC, UPSC, IBPS photo and signature requirements.</p>
+      </a>
+      <a class="tool-card" href="/resize-to-kb/50kb.html">
+        <h3>Resize to 50KB</h3>
+        <p>For NADRA CNIC, FPSC photo, IBPS photo.</p>
+      </a>
+      <a class="tool-card" href="/resize-to-kb/100kb.html">
+        <h3>Resize to 100KB</h3>
+        <p>For PPSC, UPSC signature, state exam forms.</p>
+      </a>
+      <a class="tool-card" href="/resize-to-kb/200kb.html">
+        <h3>Resize to 200KB</h3>
+        <p>For online applications and general uploads.</p>
+      </a>
+      <a class="tool-card" href="/resize-to-kb/500kb.html">
+        <h3>Resize to 500KB</h3>
+        <p>For higher quality uploads and portals.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Signatures and Passport Photos</h2>
+    <div class="grid">
+      <a class="tool-card" href="/signature/">
+        <h3>Signature Resize</h3>
+        <p>Exact dimensions and KB for UPSC, IBPS, FPSC forms.</p>
+      </a>
+      <a class="tool-card" href="/passport-photo/pakistan.html">
+        <h3>Pakistan Passport Photo</h3>
+        <p>35 x 45mm passport photo with white background.</p>
+      </a>
+      <a class="tool-card" href="/passport-photo/india.html">
+        <h3>India Passport Photo</h3>
+        <p>35 x 35mm square format for Indian passports and visas.</p>
+      </a>
+      <a class="tool-card" href="/passport-photo/us.html">
+        <h3>US Passport Photo</h3>
+        <p>2 x 2 inch square format for US passports.</p>
+      </a>
+      <a class="tool-card" href="/passport-photo/uk.html">
+        <h3>UK Passport Photo</h3>
+        <p>35 x 45mm format for UK passports.</p>
+      </a>
+      <a class="tool-card" href="/passport-photo/bangladesh.html">
+        <h3>Bangladesh Passport Photo</h3>
+        <p>35 x 45mm format for Bangladeshi passports.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Country Form Tools</h2>
+    <div class="grid">
+      <a class="tool-card" href="/cnic-resize/">
+        <h3>NADRA CNIC Resizer</h3>
+        <p>Photo for NADRA CNIC application, exact size and KB.</p>
+      </a>
+      <a class="tool-card" href="/fpsc-photo/">
+        <h3>FPSC Photo Resizer</h3>
+        <p>200 x 200 px photo under 50KB for FPSC.</p>
+      </a>
+      <a class="tool-card" href="/ibps-photo/">
+        <h3>IBPS Resizer</h3>
+        <p>Photo and signature for IBPS bank exams.</p>
+      </a>
+      <a class="tool-card" href="/upsc-photo/">
+        <h3>UPSC Resizer</h3>
+        <p>Photo and signature for UPSC civil services.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">PDF Tools</h2>
+    <div class="grid">
+      <a class="tool-card" href="/pdf-merge/">
+        <h3>Merge PDF</h3>
+        <p>Combine multiple PDFs into one file.</p>
+      </a>
+      <a class="tool-card" href="/pdf-split/">
+        <h3>Split PDF</h3>
+        <p>Extract page ranges or split every page.</p>
+      </a>
+      <a class="tool-card" href="/pdf-compress/">
+        <h3>Compress PDF</h3>
+        <p>Shrink large PDFs while keeping pages readable.</p>
+      </a>
+      <a class="tool-card" href="/pdf-to-jpg/">
+        <h3>PDF to JPG</h3>
+        <p>Convert PDF pages to JPG images.</p>
+      </a>
+      <a class="tool-card" href="/jpg-to-pdf/">
+        <h3>JPG to PDF</h3>
+        <p>Combine JPG images into a single PDF.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Format Converters</h2>
+    <div class="grid">
+      <a class="tool-card" href="/heic-converter/">
+        <h3>HEIC to JPG</h3>
+        <p>Convert iPhone HEIC photos to JPG, PNG or WebP.</p>
+      </a>
+      <a class="tool-card" href="/png-to-jpg/">
+        <h3>PNG to JPG</h3>
+        <p>Convert PNG images to JPG for form uploads.</p>
+      </a>
+      <a class="tool-card" href="/webp-to-jpg/">
+        <h3>WebP to JPG</h3>
+        <p>Convert WebP images to JPG for forms.</p>
+      </a>
+    </div>
+  </section>
+
 </main>
 
 <footer class="site">
-  Designed &amp; built by Nasir Naqvi
+  Designed and built by Nasir Naqvi
 </footer>
 
 </body>

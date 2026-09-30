@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bangladesh Passport Photo Maker â€“ ResizeHub</title>
+  <meta name="description" content="Create a Bangladesh passport photo (35Ã—45mm (413Ã—531 px)) from any selfie. Free, private, no upload.">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YF9S33NXBS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YF9S33NXBS');
+  </script>
+  <style>
+    :root { --primary: #0b6e4f; --primary-dark: #07543c; --bg: #f7f9f8; --card: #ffffff; --text: #1a1a1a; --muted: #5f6b66; --border: #dde5e1; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; min-height: 100vh; display: flex; flex-direction: column; }
+    header.site { max-width: 900px; margin: 0 auto 24px; text-align: center; }
+    header.site h1 { font-size: 1.7rem; color: var(--primary-dark); margin-bottom: 8px; }
+    header.site p { color: var(--muted); font-size: 0.95rem; }
+    nav.site { max-width: 900px; margin: 0 auto 24px; display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; font-size: 0.95rem; }
+    nav.site a { color: var(--primary-dark); text-decoration: none; font-weight: 600; }
+    nav.site a:hover { text-decoration: underline; }
+    main { flex: 1; }
+    .card { max-width: 900px; margin: 0 auto; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; box-shadow: 0 4px 18px rgba(0,0,0,0.04); }
+    .field { margin-bottom: 18px; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.95rem; }
+    input[type="file"], input[type="number"], input[type="range"] { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 1rem; background: #fff; font-family: inherit; }
+    input[type="range"] { padding: 0; }
+    button { background: var(--primary); color: #fff; border: none; padding: 13px 22px; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; transition: background 0.2s; font-family: inherit; }
+    button:hover { background: var(--primary-dark); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    #status { margin-top: 14px; font-size: 0.95rem; color: var(--muted); min-height: 22px; }
+    .preview-wrap { display: none; margin-top: 18px; text-align: center; }
+    .preview-wrap.show { display: block; }
+    #preview { max-width: 100%; max-height: 400px; border-radius: 10px; border: 1px solid var(--border); background: #f0f0f0; object-fit: contain; }
+    .preview-label { display: block; font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
+    #downloadLink { display: none; margin-top: 16px; text-align: center; background: #e8f5ef; color: var(--primary-dark); padding: 12px; border-radius: 10px; font-weight: 700; text-decoration: none; }
+    #downloadLink:hover { background: #d4ede0; }
+    .note { max-width: 900px; margin: 22px auto 0; font-size: 0.88rem; color: var(--muted); text-align: center; }
+    .range-row { display: flex; align-items: center; gap: 12px; }
+    .range-row span { font-size: 0.9rem; color: var(--muted); min-width: 45px; text-align: right; }
+    .row-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .specs { background: #f0f7f3; border-radius: 10px; padding: 12px 16px; font-size: 0.88rem; color: var(--primary-dark); margin-bottom: 18px; }
+    footer.site { max-width: 900px; margin: 40px auto 0; text-align: center; font-size: 0.88rem; color: var(--muted); padding-top: 20px; border-top: 1px solid var(--border); }
+    @media (max-width: 600px) { header.site h1 { font-size: 1.4rem; } .card { padding: 18px; } .row-2col { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<header class="site">
+  <h1>Bangladesh Passport Photo Maker</h1>
+  <p>Create a 35Ã—45mm (413Ã—531 px) passport photo from any selfie. 100% private â€” no upload.</p>
+</header>
+
+<nav class="site">
+  <a href="/">Home</a>
+  <a href="/passport-photo/pakistan.html">Pakistan</a>
+  <a href="/passport-photo/india.html">India</a>
+  <a href="/passport-photo/us.html">US</a>
+  <a href="/passport-photo/uk.html">UK</a>
+  <a href="/passport-photo/bangladesh.html">Bangladesh</a>
+</nav>
+
+<main>
+  <div class="card">
+    <div class="specs">
+      <strong>Bangladesh passport photo specs:</strong> 35Ã—45mm (413Ã—531 px), white background, JPEG format.
+    </div>
+
+    <div class="field">
+      <label for="fileInput">Choose a photo (selfie works fine)</label>
+      <input type="file" id="fileInput" accept="image/*">
+    </div>
+
+    <div class="field">
+      <label for="bgThreshold">Background cleanup (raise until the background turns white)</label>
+      <div class="range-row">
+        <input type="range" id="bgThreshold" min="0" max="255" value="200">
+        <span id="bgThresholdVal">200</span>
+      </div>
+    </div>
+
+    <div class="row-2col">
+      <div class="field">
+        <label for="offsetX">Move left / right</label>
+        <input type="range" id="offsetX" min="-100" max="100" value="0">
+      </div>
+      <div class="field">
+        <label for="offsetY">Move up / down</label>
+        <input type="range" id="offsetY" min="-100" max="100" value="0">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="zoom">Zoom</label>
+      <input type="range" id="zoom" min="50" max="200" value="100">
+    </div>
+
+    <div class="field">
+      <label for="targetKb">Target file size (KB)</label>
+      <input type="number" id="targetKb" value="200" min="20" max="2000">
+    </div>
+
+    <button id="processBtn" disabled>Create Passport Photo</button>
+
+    <div id="status">Upload a photo to begin.</div>
+
+    <div class="preview-wrap" id="previewWrap">
+      <img id="preview" alt="Preview">
+      <span class="preview-label" id="previewLabel"></span>
+    </div>
+
+    <a id="downloadLink" href="#" download>Download Passport Photo</a>
+  </div>
+
+  <p class="note">Works fully in your browser. No server upload. Free for single images.</p>
+</main>
+
+<footer class="site">Designed &amp; built by Nasir Naqvi</footer>
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const bgThreshold = document.getElementById('bgThreshold');
+  const bgThresholdVal = document.getElementById('bgThresholdVal');
+  const offsetX = document.getElementById('offsetX');
+  const offsetY = document.getElementById('offsetY');
+  const zoom = document.getElementById('zoom');
+  const targetKb = document.getElementById('targetKb');
+  const processBtn = document.getElementById('processBtn');
+  const statusEl = document.getElementById('status');
+  const preview = document.getElementById('preview');
+  const previewWrap = document.getElementById('previewWrap');
+  const previewLabel = document.getElementById('previewLabel');
+  const downloadLink = document.getElementById('downloadLink');
+
+  const TARGET_W = 413;
+  const TARGET_H = 531;
+  const ASPECT = TARGET_W / TARGET_H;
+
+  let originalImg = null;
+  let originalFileName = 'passport';
+
+  bgThreshold.addEventListener('input', () => { bgThresholdVal.textContent = bgThreshold.value; if (originalImg) livePreview(); });
+  offsetX.addEventListener('input', () => { if (originalImg) livePreview(); });
+  offsetY.addEventListener('input', () => { if (originalImg) livePreview(); });
+  zoom.addEventListener('input', () => { if (originalImg) livePreview(); });
+
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    originalFileName = file.name.replace(/\.[^.]+$/, '');
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      originalImg = img;
+      processBtn.disabled = false;
+      downloadLink.style.display = 'none';
+      previewWrap.classList.add('show');
+      statusEl.textContent = 'Loaded: ' + file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB). Adjust sliders, then click Create.';
+      livePreview();
+    };
+    img.onerror = () => { statusEl.textContent = 'Could not load this image. Try JPG or PNG.'; };
+    img.src = url;
+  });
+
+  function buildCanvas() {
+    const canvas = document.createElement('canvas');
+    canvas.width = TARGET_W;
+    canvas.height = TARGET_H;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, TARGET_W, TARGET_H);
+
+    const imgW = originalImg.naturalWidth;
+    const imgH = originalImg.naturalHeight;
+    const imgAspect = imgW / imgH;
+
+    let drawW, drawH;
+    if (imgAspect > ASPECT) { drawH = TARGET_H; drawW = TARGET_H * imgAspect; }
+    else { drawW = TARGET_W; drawH = TARGET_W / imgAspect; }
+
+    const z = parseInt(zoom.value) / 100;
+    drawW *= z;
+    drawH *= z;
+
+    const xShift = (parseInt(offsetX.value) / 100) * TARGET_W * 0.5;
+    const yShift = (parseInt(offsetY.value) / 100) * TARGET_H * 0.5;
+
+    const x = (TARGET_W - drawW) / 2 + xShift;
+    const y = (TARGET_H - drawH) / 2 + yShift;
+
+    ctx.drawImage(originalImg, x, y, drawW, drawH);
+
+    const th = parseInt(bgThreshold.value);
+    const imageData = ctx.getImageData(0, 0, TARGET_W, TARGET_H);
+    const data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      const brightness = (data[i] + data[i+1] + data[i+2]) / 3;
+      if (brightness > th) { data[i] = 255; data[i+1] = 255; data[i+2] = 255; }
+    }
+    ctx.putImageData(imageData, 0, 0);
+    return canvas;
+  }
+
+  function livePreview() {
+    const canvas = buildCanvas();
+    canvas.toBlob((blob) => {
+      preview.src = URL.createObjectURL(blob);
+      previewLabel.textContent = 'Preview: ' + TARGET_W + 'Ã—' + TARGET_H + ' px';
+    }, 'image/jpeg', 0.9);
+  }
+
+  processBtn.addEventListener('click', async () => {
+    if (!originalImg) return;
+    const targetKB = parseFloat(targetKb.value);
+    if (!targetKB || targetKB <= 0) { statusEl.textContent = 'Enter a valid KB target.'; return; }
+
+    processBtn.disabled = true;
+    statusEl.textContent = 'Processingâ€¦';
+
+    try {
+      const canvas = buildCanvas();
+      const result = await compressToTarget(canvas, targetKB * 1024);
+      if (!result) { statusEl.textContent = 'Could not reach ' + targetKB + ' KB. Try a higher target.'; processBtn.disabled = false; return; }
+      const blobUrl = URL.createObjectURL(result.blob);
+      downloadLink.href = blobUrl;
+      downloadLink.download = originalFileName + '-passport.jpg';
+      downloadLink.style.display = 'block';
+      preview.src = blobUrl;
+      previewLabel.textContent = 'Final: ' + TARGET_W + 'Ã—' + TARGET_H + ' px | ' + (result.blob.size / 1024).toFixed(1) + ' KB';
+      statusEl.textContent = 'Done! Ready to download.';
+    } catch (err) { console.error(err); statusEl.textContent = 'Something went wrong. Try another image.'; }
+    processBtn.disabled = false;
+  });
+
+  async function compressToTarget(canvas, targetBytes) {
+    let low = 0.01, high = 0.99;
+    let bestBlob = null, bestQuality = 0.8;
+    for (let i = 0; i < 8; i++) {
+      const mid = (low + high) / 2;
+      const blob = await canvasToBlob(canvas, 'image/jpeg', mid);
+      if (blob.size <= targetBytes) { bestBlob = blob; bestQuality = mid; low = mid; }
+      else { high = mid; }
+    }
+    return bestBlob ? { blob: bestBlob, quality: bestQuality } : null;
+  }
+  function canvasToBlob(canvas, type, quality) {
+    return new Promise((resolve) => canvas.toBlob(resolve, type, quality));
+  }
+</script>
+</body>
+</html>

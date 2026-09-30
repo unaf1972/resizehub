@@ -1,8 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://resize-hub.netlify.app/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <url><loc>https://resize-hub.netlify.app/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://resize-hub.netlify.app/resize-to-kb/20kb.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://resize-hub.netlify.app/resize-to-kb/50kb.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://resize-hub.netlify.app/resize-to-kb/100kb.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://resize-hub.netlify.app/resize-to-kb/200kb.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://resize-hub.netlify.app/resize-to-kb/500kb.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://resize-hub.netlify.app/signature/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://resize-hub.netlify.app/passport-photo/pakistan.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://resize-hub.netlify.app/passport-photo/india.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://resize-hub.netlify.app/passport-photo/us.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://resize-hub.netlify.app/passport-photo/uk.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://resize-hub.netlify.app/passport-photo/bangladesh.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://resize-hub.netlify.app/cnic-resize/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://resize-hub.netlify.app/fpsc-photo/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://resize-hub.netlify.app/ibps-photo/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://resize-hub.netlify.app/upsc-photo/</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://resize-hub.netlify.app/heic-converter/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://resize-hub.netlify.app/png-to-jpg/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://resize-hub.netlify.app/webp-to-jpg/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://resize-hub.netlify.app/pdf-merge/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://resize-hub.netlify.app/pdf-split/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://resize-hub.netlify.app/pdf-compress/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://resize-hub.netlify.app/pdf-to-jpg/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://resize-hub.netlify.app/jpg-to-pdf/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>

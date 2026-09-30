@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HEIC to JPG Converter – ResizeHub</title>
+  <meta name="description" content="Convert iPhone HEIC photos to JPG, PNG or WebP online. Free, private, no upload.">
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YF9S33NXBS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YF9S33NXBS');
+  </script>
+
+  <!-- HEIC converter library (client-side) -->
+  <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+
+  <style>
+    :root {
+      --primary: #0b6e4f;
+      --primary-dark: #07543c;
+      --bg: #f7f9f8;
+      --card: #ffffff;
+      --text: #1a1a1a;
+      --muted: #5f6b66;
+      --border: #dde5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header.site {
+      max-width: 860px;
+      margin: 0 auto 24px;
+      text-align: center;
+    }
+    header.site h1 {
+      font-size: 1.7rem;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+    header.site p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    nav.site {
+      max-width: 860px;
+      margin: 0 auto 24px;
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+    nav.site a {
+      color: var(--primary-dark);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    nav.site a:hover { text-decoration: underline; }
+    main { flex: 1; }
+    .card {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+    }
+    .field { margin-bottom: 18px; }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+    input[type="file"],
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      background: #fff;
+      font-family: inherit;
+    }
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 13px 22px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+    button:hover { background: var(--primary-dark); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    #status {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: var(--muted);
+      min-height: 22px;
+    }
+    #preview {
+      display: none;
+      max-width: 100%;
+      max-height: 320px;
+      margin: 18px auto 0;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      object-fit: contain;
+      background: #f0f0f0;
+    }
+    #downloadLink {
+      display: none;
+      margin-top: 16px;
+      text-align: center;
+      background: #e8f5ef;
+      color: var(--primary-dark);
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    #downloadLink:hover { background: #d4ede0; }
+    .note {
+      max-width: 860px;
+      margin: 22px auto 0;
+      font-size: 0.88rem;
+      color: var(--muted);
+      text-align: center;
+    }
+    footer.site {
+      max-width: 860px;
+      margin: 40px auto 0;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 600px) {
+      header.site h1 { font-size: 1.4rem; }
+      .card { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site">
+  <h1>HEIC to JPG Converter</h1>
+  <p>Convert iPhone HEIC photos to JPG, PNG or WebP. 100% private — no upload.</p>
+</header>
+
+<nav class="site">
+  <a href="/">Home</a>
+  <a href="/resize-to-kb/20kb.html">20KB</a>
+  <a href="/resize-to-kb/50kb.html">50KB</a>
+  <a href="/resize-to-kb/100kb.html">100KB</a>
+  <a href="/signature/">Signature</a>
+  <a href="/passport-photo/pakistan.html">Passport</a>
+</nav>
+
+<main>
+  <div class="card">
+    <div class="field">
+      <label for="fileInput">Choose HEIC or HEIF file</label>
+      <input type="file" id="fileInput" accept=".heic,.heif,image/heic,image/heif">
+    </div>
+
+    <div class="field">
+      <label for="format">Convert to</label>
+      <select id="format">
+        <option value="image/jpeg">JPG (smallest, best for forms)</option>
+        <option value="image/png">PNG (lossless, larger)</option>
+        <option value="image/webp">WebP (modern, small)</option>
+      </select>
+    </div>
+
+    <button id="processBtn" disabled>Convert Now</button>
+
+    <div id="status">Upload a HEIC file to begin.</div>
+    <img id="preview" alt="Preview">
+    <a id="downloadLink" href="#" download>Download Converted Image</a>
+  </div>
+
+  <p class="note">
+    Works fully in your browser. No server upload. Free for single images.
+  </p>
+</main>
+
+<footer class="site">
+  Designed &amp; built by Nasir Naqvi
+</footer>
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const format = document.getElementById('format');
+  const processBtn = document.getElementById('processBtn');
+  const statusEl = document.getElementById('status');
+  const preview = document.getElementById('preview');
+  const downloadLink = document.getElementById('downloadLink');
+
+  let selectedFile = null;
+  let originalFileName = 'image';
+
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    selectedFile = file;
+    originalFileName = file.name.replace(/\.[^.]+$/, '');
+    processBtn.disabled = false;
+    downloadLink.style.display = 'none';
+    preview.style.display = 'none';
+    statusEl.textContent = 'Loaded: ' + file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)';
+  });
+
+  processBtn.addEventListener('click', async () => {
+    if (!selectedFile) return;
+
+    const targetFormat = format.value;
+    const ext = targetFormat === 'image/jpeg' ? 'jpg'
+              : targetFormat === 'image/png'  ? 'png'
+              : 'webp';
+
+    processBtn.disabled = true;
+    statusEl.textContent = 'Converting…';
+
+    try {
+      // Use heic2any to decode HEIC into a JPEG blob first
+      const converted = await heic2any({
+        blob: selectedFile,
+        toType: 'image/jpeg',
+        quality: 0.92
+      });
+
+      const jpegBlob = Array.isArray(converted) ? converted[0] : converted;
+
+      // If user wants JPG, we're done. For PNG/WebP, re-encode via canvas.
+      let finalBlob = jpegBlob;
+
+      if (targetFormat !== 'image/jpeg') {
+        finalBlob = await reencode(jpegBlob, targetFormat);
+      }
+
+      const url = URL.createObjectURL(finalBlob);
+      preview.src = url;
+      preview.style.display = 'block';
+      downloadLink.href = url;
+      downloadLink.download = originalFileName + '.' + ext;
+      downloadLink.style.display = 'block';
+      statusEl.textContent = 'Done: ' + (finalBlob.size / 1024).toFixed(1) + ' KB as ' + ext.toUpperCase();
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = 'Conversion failed. Make sure the file is a real HEIC photo.';
+    }
+
+    processBtn.disabled = false;
+  });
+
+  function reencode(blob, type) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      const url = URL.createObjectURL(blob);
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob((out) => resolve(out), type, 0.92);
+      };
+      img.src = url;
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resize Image to 50KB Online – ResizeHub</title>
+  <meta name="description" content="Resize image to exact 50KB for NADRA CNIC, FPSC, IBPS and government forms. Free, private, no upload.">
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YF9S33NXBS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YF9S33NXBS');
+  </script>
+
+  <style>
+    :root {
+      --primary: #0b6e4f;
+      --primary-dark: #07543c;
+      --bg: #f7f9f8;
+      --card: #ffffff;
+      --text: #1a1a1a;
+      --muted: #5f6b66;
+      --border: #dde5e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header.site {
+      max-width: 860px;
+      margin: 0 auto 24px;
+      text-align: center;
+    }
+    header.site h1 {
+      font-size: 1.7rem;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+    header.site p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    nav.site {
+      max-width: 860px;
+      margin: 0 auto 24px;
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+    nav.site a {
+      color: var(--primary-dark);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    nav.site a:hover { text-decoration: underline; }
+    main { flex: 1; }
+    .card {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+    }
+    .field { margin-bottom: 18px; }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+    input[type="file"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      background: #fff;
+      font-family: inherit;
+    }
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 13px 22px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s;
+      font-family: inherit;
+    }
+    button:hover { background: var(--primary-dark); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    #status {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: var(--muted);
+      min-height: 22px;
+    }
+    #preview {
+      display: none;
+      max-width: 100%;
+      max-height: 320px;
+      margin: 18px auto 0;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      object-fit: contain;
+    }
+    #downloadLink {
+      display: none;
+      margin-top: 16px;
+      text-align: center;
+      background: #e8f5ef;
+      color: var(--primary-dark);
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    #downloadLink:hover { background: #d4ede0; }
+    .note {
+      max-width: 860px;
+      margin: 22px auto 0;
+      font-size: 0.88rem;
+      color: var(--muted);
+      text-align: center;
+    }
+    footer.site {
+      max-width: 860px;
+      margin: 40px auto 0;
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    @media (max-width: 600px) {
+      header.site h1 { font-size: 1.4rem; }
+      .card { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site">
+  <h1>Resize Image to 50KB</h1>
+  <p>Exact KB targeting for NADRA CNIC, FPSC, IBPS forms. 100% private — no upload.</p>
+</header>
+
+<nav class="site">
+  <a href="/">Home</a>
+  <a href="/tools/resize-to-kb/20kb.html">20KB</a>
+  <a href="/tools/resize-to-kb/50kb.html">50KB</a>
+  <a href="/">100KB (soon)</a>
+</nav>
+
+<main>
+  <div class="card">
+    <div class="field">
+      <label for="preset">Preset</label>
+      <select id="preset">
+        <option value="50,200,200">FPSC Photo (200×200, 50KB)</option>
+        <option value="50,200,230">IBPS Photo (200×230, 50KB)</option>
+        <option value="50,413,531">NADRA CNIC (413×531, 50KB)</option>
+        <option value="50,0,0">Custom (keep dimensions)</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="fileInput">Choose image</label>
+      <input type="file" id="fileInput" accept="image/*">
+    </div>
+
+    <div class="field">
+      <label for="targetKb">Target size (KB)</label>
+      <input type="number" id="targetKb" value="50" min="1" max="5000">
+    </div>
+
+    <button id="processBtn" disabled>Resize to Exact KB</button>
+
+    <div id="status">Upload an image to begin.</div>
+    <img id="preview" alt="Preview">
+    <a id="downloadLink" href="#" download>Download Resized Image</a>
+  </div>
+
+  <p class="note">
+    Works fully in your browser. No server upload. Free for single images.
+  </p>
+</main>
+
+<footer class="site">
+  Designed &amp; built by Nasir Naqvi
+</footer>
+
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const targetKb = document.getElementById('targetKb');
+  const preset = document.getElementById('preset');
+  const processBtn = document.getElementById('processBtn');
+  const statusEl = document.getElementById('status');
+  const preview = document.getElementById('preview');
+  const downloadLink = document.getElementById('downloadLink');
+
+  let originalImg = null;
+  let originalFileName = 'image';
+
+  preset.addEventListener('change', () => {
+    const parts = preset.value.split(',');
+    if (parts[0] && parts[0] !== '0') targetKb.value = parts[0];
+  });
+
+  fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    originalFileName = file.name.replace(/\.[^.]+$/, '');
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+
+    img.onload = () => {
+      originalImg = img;
+      preview.src = url;
+      preview.style.display = 'block';
+      downloadLink.style.display = 'none';
+      processBtn.disabled = false;
+      statusEl.textContent = 'Loaded: ' + file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)';
+    };
+
+    img.onerror = () => {
+      statusEl.textContent = 'Could not load this image. Try JPG or PNG.';
+    };
+
+    img.src = url;
+  });
+
+  processBtn.addEventListener('click', async () => {
+    if (!originalImg) return;
+
+    const targetKB = parseFloat(targetKb.value);
+    if (!targetKB || targetKB <= 0) {
+      statusEl.textContent = 'Enter a valid KB target.';
+      return;
+    }
+
+    const targetBytes = targetKB * 1024;
+    processBtn.disabled = true;
+    statusEl.textContent = 'Processing…';
+
+    try {
+      const result = await resizeToTarget(originalImg, targetBytes);
+
+      if (!result) {
+        statusEl.textContent = 'Could not reach ' + targetKB + ' KB. Try a higher target or a smaller image.';
+        processBtn.disabled = false;
+        return;
+      }
+
+      const blobUrl = URL.createObjectURL(result.blob);
+      downloadLink.href = blobUrl;
+      downloadLink.download = originalFileName + '-' + targetKB + 'kb.jpg';
+      downloadLink.style.display = 'block';
+      preview.src = blobUrl;
+      statusEl.textContent = 'Done: ' + (result.blob.size / 1024).toFixed(1) + ' KB at quality ' + result.quality.toFixed(2) + '.';
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = 'Something went wrong. Try another image.';
+    }
+
+    processBtn.disabled = false;
+  });
+
+  async function resizeToTarget(img, targetBytes) {
+    let width = img.naturalWidth;
+    let height = img.naturalHeight;
+    let scale = 1;
+    let bestBlob = null;
+    let bestQuality = 0.8;
+
+    for (let attempt = 0; attempt < 14; attempt++) {
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(width * scale));
+      canvas.height = Math.max(1, Math.round(height * scale));
+
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      let low = 0.01;
+      let high = 0.99;
+      let localBest = null;
+      let localQuality = 0.8;
+
+      for (let i = 0; i < 8; i++) {
+        const mid = (low + high) / 2;
+        const blob = await canvasToBlob(canvas, 'image/jpeg', mid);
+
+        if (blob.size <= targetBytes) {
+          localBest = blob;
+          localQuality = mid;
+          low = mid;
+        } else {
+          high = mid;
+        }
+      }
+
+      if (localBest) {
+        bestBlob = localBest;
+        bestQuality = localQuality;
+        break;
+      }
+
+      scale *= 0.85;
+      if (canvas.width < 60 || canvas.height < 60) break;
+    }
+
+    return bestBlob ? { blob: bestBlob, quality: bestQuality } : null;
+  }
+
+  function canvasToBlob(canvas, type, quality) {
+    return new Promise((resolve) => {
+      canvas.toBlob(resolve, type, quality);
+    });
+  }
+</script>
+
+</body>
+</html>
