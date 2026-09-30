@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Merge PDF Files Online – ResizeHub</title>
+  <title>Merge PDF Files Online - ResizeHub</title>
   <meta name="description" content="Merge multiple PDF files into one, right in your browser. Free, private, no upload.">
-
-  <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YF9S33NXBS"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -14,222 +12,59 @@
     gtag('js', new Date());
     gtag('config', 'G-YF9S33NXBS');
   </script>
-
-  <!-- pdf-lib for client-side PDF manipulation -->
   <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-
+  <link rel="stylesheet" href="/assets/css/style.css">
   <style>
-    :root {
-      --primary: #0b6e4f;
-      --primary-dark: #07543c;
-      --bg: #f7f9f8;
-      --card: #ffffff;
-      --text: #1a1a1a;
-      --muted: #5f6b66;
-      --border: #dde5e1;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      padding: 20px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    header.site {
-      max-width: 860px;
-      margin: 0 auto 24px;
-      text-align: center;
-    }
-    header.site h1 {
-      font-size: 1.7rem;
-      color: var(--primary-dark);
-      margin-bottom: 8px;
-    }
-    header.site p {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-    nav.site {
-      max-width: 860px;
-      margin: 0 auto 24px;
-      display: flex;
-      gap: 18px;
-      justify-content: center;
-      flex-wrap: wrap;
-      font-size: 0.95rem;
-    }
-    nav.site a {
-      color: var(--primary-dark);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    nav.site a:hover { text-decoration: underline; }
-    main { flex: 1; }
-    .card {
-      max-width: 860px;
-      margin: 0 auto;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.04);
-    }
+    .tool-card { background: var(--rh-surface); border: 1px solid var(--rh-border); border-radius: var(--rh-radius-lg); padding: 28px; box-shadow: var(--rh-shadow); }
+    .tool-card h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px; color: var(--rh-text); }
+    .tool-card .subtitle { color: var(--rh-muted); font-size: 0.95rem; margin: 0 0 22px; }
+    .tool-badge { display: inline-block; padding: 5px 12px; background: rgba(37,99,235,0.08); color: var(--rh-primary-dark); border-radius: 999px; font-size: 0.78rem; font-weight: 700; margin-bottom: 14px; }
     .field { margin-bottom: 18px; }
-    label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 6px;
-      font-size: 0.95rem;
-    }
-    input[type="file"],
-    input[type="text"] {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-size: 1rem;
-      background: #fff;
-      font-family: inherit;
-    }
-    button {
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      padding: 13px 22px;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      width: 100%;
-      transition: background 0.2s;
-      font-family: inherit;
-    }
-    button:hover { background: var(--primary-dark); }
-    button:disabled { opacity: 0.6; cursor: not-allowed; }
-    #status {
-      margin-top: 14px;
-      font-size: 0.95rem;
-      color: var(--muted);
-      min-height: 22px;
-    }
-    #downloadLink {
-      display: none;
-      margin-top: 16px;
-      text-align: center;
-      background: #e8f5ef;
-      color: var(--primary-dark);
-      padding: 12px;
-      border-radius: 10px;
-      font-weight: 700;
-      text-decoration: none;
-    }
-    #downloadLink:hover { background: #d4ede0; }
-    .file-list {
-      margin-top: 12px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: #fff;
-      overflow: hidden;
-    }
-    .file-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.92rem;
-    }
+    .field label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.92rem; color: var(--rh-text); }
+    .field input[type="file"], .field input[type="text"] { width: 100%; padding: 12px 14px; border: 1px solid var(--rh-border); border-radius: 10px; font-size: 1rem; background: #fff; font-family: inherit; color: var(--rh-text); transition: border-color 0.15s, box-shadow 0.15s; }
+    .field input:focus { outline: none; border-color: var(--rh-primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+    .btn-primary { background: linear-gradient(135deg, var(--rh-primary) 0%, var(--rh-primary-light) 100%); color: #fff; border: none; padding: 14px 22px; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; width: 100%; font-family: inherit; box-shadow: 0 4px 14px rgba(37,99,235,0.25); transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s; }
+    .btn-primary:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,99,235,0.32); }
+    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; box-shadow: none; }
+    #status { margin-top: 16px; font-size: 0.93rem; color: var(--rh-muted); min-height: 22px; text-align: center; }
+    #downloadLink { display: none; margin-top: 18px; text-align: center; background: linear-gradient(135deg, #ecfdf5, #dbeafe); color: var(--rh-primary-dark); padding: 14px; border-radius: 12px; font-weight: 700; text-decoration: none; border: 1px solid rgba(37,99,235,0.2); }
+    #downloadLink:hover { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+    .file-list { margin-top: 12px; border: 1px solid var(--rh-border); border-radius: 10px; background: #fff; overflow: hidden; }
+    .file-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--rh-border); font-size: 0.92rem; }
     .file-item:last-child { border-bottom: none; }
     .file-item .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 12px; }
-    .file-item .size { color: var(--muted); font-size: 0.85rem; margin-right: 12px; }
-    .file-item button.remove {
-      background: #fbe6e6;
-      color: #b12929;
-      padding: 5px 10px;
-      width: auto;
-      font-size: 0.8rem;
-      font-weight: 700;
-    }
-    .file-item button.remove:hover { background: #f7d4d4; }
-    .empty-msg {
-      padding: 14px;
-      color: var(--muted);
-      font-size: 0.9rem;
-      text-align: center;
-    }
-    .note {
-      max-width: 860px;
-      margin: 22px auto 0;
-      font-size: 0.88rem;
-      color: var(--muted);
-      text-align: center;
-    }
-    footer.site {
-      max-width: 860px;
-      margin: 40px auto 0;
-      text-align: center;
-      font-size: 0.88rem;
-      color: var(--muted);
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-    }
-    @media (max-width: 600px) {
-      header.site h1 { font-size: 1.4rem; }
-      .card { padding: 18px; }
-    }
+    .file-item .size { color: var(--rh-muted); font-size: 0.85rem; margin-right: 12px; }
+    .file-item button.remove { background: #fbe6e6; color: #b12929; padding: 5px 10px; width: auto; font-size: 0.8rem; font-weight: 700; border: none; border-radius: 6px; cursor: pointer; }
+    .empty-msg { padding: 14px; color: var(--rh-muted); font-size: 0.9rem; text-align: center; }
+    .tool-note { max-width: 720px; margin: 22px auto 0; font-size: 0.85rem; color: var(--rh-muted); text-align: center; line-height: 1.6; }
+    .tool-note strong { color: var(--rh-primary-dark); }
   </style>
 </head>
 <body>
+<main class="rh-main-tool">
+  <div class="tool-card">
+    <span class="tool-badge">Combine files</span>
+    <h1>Merge PDF</h1>
+    <p class="subtitle">Combine multiple PDF files into one. Nothing is uploaded.</p>
 
-<header class="site">
-  <h1>Merge PDF Files</h1>
-  <p>Combine multiple PDFs into one, right in your browser. 100% private — no upload.</p>
-</header>
-
-<nav class="site">
-  <a href="/">Home</a>
-  <a href="/resize-to-kb/20kb.html">20KB</a>
-  <a href="/resize-to-kb/50kb.html">50KB</a>
-  <a href="/resize-to-kb/100kb.html">100KB</a>
-  <a href="/signature/">Signature</a>
-  <a href="/passport-photo/pakistan.html">Passport</a>
-  <a href="/heic-converter/">HEIC</a>
-</nav>
-
-<main>
-  <div class="card">
     <div class="field">
-      <label for="fileInput">Choose PDF files (you can select multiple)</label>
+      <label for="fileInput">Choose PDF files (multiple allowed)</label>
       <input type="file" id="fileInput" accept="application/pdf,.pdf" multiple>
     </div>
 
-    <div id="fileList" class="file-list">
-      <div class="empty-msg">No files added yet.</div>
-    </div>
+    <div id="fileList" class="file-list"><div class="empty-msg">No files added yet.</div></div>
 
     <div class="field" style="margin-top: 18px;">
       <label for="outputName">Output filename (without .pdf)</label>
-      <input type="text" id="outputName" value="merged" placeholder="merged">
+      <input type="text" id="outputName" value="merged">
     </div>
 
-    <button id="processBtn" disabled>Merge PDFs</button>
-
+    <button class="btn-primary" id="processBtn" disabled>Merge PDFs</button>
     <div id="status">Add at least 2 PDF files to begin.</div>
     <a id="downloadLink" href="#" download>Download Merged PDF</a>
   </div>
-
-  <p class="note">
-    Works fully in your browser. Files never leave your device.
-  </p>
+  <p class="tool-note"><strong>100% private.</strong> Files never leave your device.</p>
 </main>
-
-<footer class="site">
-  Designed &amp; built by Nasir Naqvi
-</footer>
 
 <script>
   const fileInput = document.getElementById('fileInput');
@@ -238,20 +73,16 @@
   const processBtn = document.getElementById('processBtn');
   const statusEl = document.getElementById('status');
   const downloadLink = document.getElementById('downloadLink');
-
   let files = [];
 
   fileInput.addEventListener('change', (e) => {
-    const newFiles = Array.from(e.target.files);
-    files = files.concat(newFiles);
+    files = files.concat(Array.from(e.target.files));
     renderList();
-    // Reset input so picking the same file again still fires 'change'
     fileInput.value = '';
   });
 
   function renderList() {
     fileList.innerHTML = '';
-
     if (files.length === 0) {
       fileList.innerHTML = '<div class="empty-msg">No files added yet.</div>';
       processBtn.disabled = true;
@@ -259,72 +90,50 @@
       downloadLink.style.display = 'none';
       return;
     }
-
     files.forEach((file, index) => {
       const row = document.createElement('div');
       row.className = 'file-item';
-
       const name = document.createElement('span');
       name.className = 'name';
       name.textContent = file.name;
-
       const size = document.createElement('span');
       size.className = 'size';
       size.textContent = (file.size / 1024).toFixed(1) + ' KB';
-
       const removeBtn = document.createElement('button');
       removeBtn.className = 'remove';
       removeBtn.textContent = 'Remove';
-      removeBtn.addEventListener('click', () => {
-        files.splice(index, 1);
-        renderList();
-      });
-
-      row.appendChild(name);
-      row.appendChild(size);
-      row.appendChild(removeBtn);
+      removeBtn.addEventListener('click', () => { files.splice(index, 1); renderList(); });
+      row.appendChild(name); row.appendChild(size); row.appendChild(removeBtn);
       fileList.appendChild(row);
     });
-
     processBtn.disabled = files.length < 2;
     statusEl.textContent = files.length + ' file(s) ready.';
-    downloadLink.style.display = 'none';
   }
 
   processBtn.addEventListener('click', async () => {
     if (files.length < 2) return;
-
     processBtn.disabled = true;
-    statusEl.textContent = 'Merging…';
-
+    statusEl.textContent = 'Merging...';
     try {
       const { PDFDocument } = PDFLib;
       const mergedPdf = await PDFDocument.create();
-
       for (const file of files) {
         const arrayBuffer = await file.arrayBuffer();
         const srcDoc = await PDFDocument.load(arrayBuffer);
         const copiedPages = await mergedPdf.copyPages(srcDoc, srcDoc.getPageIndices());
         copiedPages.forEach((page) => mergedPdf.addPage(page));
       }
-
       const mergedBytes = await mergedPdf.save();
       const blob = new Blob([mergedBytes], { type: 'application/pdf' });
       const url = URL.createObjectURL(blob);
-
-      const baseName = (outputName.value || 'merged').trim();
       downloadLink.href = url;
-      downloadLink.download = baseName + '.pdf';
+      downloadLink.download = (outputName.value || 'merged').trim() + '.pdf';
       downloadLink.style.display = 'block';
-      statusEl.textContent = 'Done: ' + (blob.size / 1024).toFixed(1) + ' KB total. Click below to download.';
-    } catch (err) {
-      console.error(err);
-      statusEl.textContent = 'Merge failed. Make sure all files are valid PDFs (not password-protected).';
-    }
-
+      statusEl.textContent = 'Done: ' + (blob.size / 1024).toFixed(1) + ' KB total.';
+    } catch (err) { console.error(err); statusEl.textContent = 'Merge failed. Check that all files are valid PDFs.'; }
     processBtn.disabled = false;
   });
 </script>
-
+<script src="/assets/js/site.js"></script>
 </body>
 </html>
